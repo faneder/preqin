@@ -36,7 +36,9 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0"
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "jest-mock-axios": "^4.7.3"
   },
   "jest": {
     "transformIgnorePatterns": [
