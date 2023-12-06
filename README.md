@@ -1,26 +1,72 @@
-# Getting Started with Create React App
+# Investor Portal Setup Guide
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This guide provides detailed steps for setting up and running the Preqin Investor Portal application, a React-based web application that displays investor information and their commitments based on selected asset classes.
 
-## Available Scripts
+## Prerequisites
 
-In the project directory, you can run:
+Before you begin, ensure you have the following installed on your system:
+- Node.js (v12 or later)
+- npm
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone the repository to your local machine using the following command:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```sh
+git clone git@github.com:faneder/preqin-test.git
+cd preqin-test
+```
 
-### `npm test`
+2. Install the project dependencies by running:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+npm install
+```
 
-### `npm run build`
+## Configuration
 
+The application requires connection to an API with authentication. You'll need to configure the following environment variables:
+- `USERNAME`: The username for API authentication.
+- `APIKEY`: The API key for API authentication.
+
+Create a `.env` file in the root directory and fill in the values for the environment variables:
+
+```
+USERNAME=your-username
+APIKEY=your-apikey
+```
+
+## Running the Application
+
+To start the application, run:
+
+```sh
+npm start
+```
+
+This command will start the application and open it in your default web browser. If it doesn’t automatically open, you can manually visit [http://localhost:3000](http://localhost:3000).
+
+## Application Structure
+
+- `App.js`: This is the entry file for our React application. It sets up the router and defines the routes.
+- `components/InvestorsTable/InvestorsTable.js`: This component displays a list of investors fetched from the API.
+- `components/InvestorPage/InvestorPage.js`: This component displays the commitment information for a selected investor and asset class.
+- `api/investorApi.js`: Contains the API calls to fetch investors and their commitments.
+- `services/authService.js`: Contains the authentication service used to get an access token.
+
+## Testing
+
+The application comes with a set of unit tests. To run these tests, execute:
+
+```sh
+npm test
+```
+
+## Deployment
+
+```sh
+npm run build
+```
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
@@ -29,42 +75,21 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Troubleshooting
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+If you encounter any issues with the API calls, ensure your `.env` file is correctly set up with the right API endpoints and credentials.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+For other issues, check the console for any error messages that might provide more insight into the problem.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Contributing
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+We welcome contributions to the Investor Portal application. Please read our contribution guide for more information on how to submit pull requests.
 
-## Learn More
+## Support
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+If you need assistance, please send an email to support@preqin.com with a description of your problem.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
 
-### Code Splitting
+This project is licensed under the MIT License - see the `LICENSE.md` file for details.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
