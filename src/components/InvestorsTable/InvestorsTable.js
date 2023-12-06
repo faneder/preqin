@@ -41,14 +41,15 @@ const InvestorsTable = () => {
             </tr>
             </thead>
             <tbody>
-            {investors && investors.map((investor, index) => (
+            {investors.length > 0 ? (investors.map((investor, index) => (
                 <tr key={index}>
                     <td>{investor.firmID}</td>
                     <td>{investor.firmName}</td>
                     <td>{investor.firmType}</td>
                     <td>{investor.address}</td>
                 </tr>
-            ))}
+                ))
+            ) : 'No investors found'}
             </tbody>
         </table>
     );

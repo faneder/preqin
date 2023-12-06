@@ -33,6 +33,17 @@ describe('InvestorsTable', () => {
 
         await screen.findByText('Error: connection failed');
     });
+
+    it('displays a message when no investors are found', async () => {
+        getInvestorsByFirmIds.mockResolvedValue({data: []});
+
+        renderWithRouter(<InvestorsTable/>);
+
+        const loading = await screen.findByText('Loading...');
+        await waitForElementToBeRemoved(loading);
+
+        expect(screen.getByText('No investors found')).toBeInTheDocument();
+    });
 });
 
 const renderWithRouter = (component) => {
