@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {getInvestorsByFirmIds} from '../../api/investorApi';
+import {getInvestors} from '../../api/investorApi';
 import {useNavigate} from "react-router-dom";
 
 const firmIds = [2670, 2792, 332, 3611];
@@ -13,7 +13,7 @@ const InvestorsTable = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await getInvestorsByFirmIds(firmIds);
+                const response = await getInvestors(firmIds);
                 setInvestors(response.data);
             } catch (error) {
                 setError(`Error: ${error.message}`);

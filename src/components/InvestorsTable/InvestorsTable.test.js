@@ -1,6 +1,6 @@
 import React from 'react';
 import {fireEvent, render, screen, waitForElementToBeRemoved} from '@testing-library/react';
-import {getInvestorsByFirmIds} from '../../api/investorApi';
+import {getInvestors} from '../../api/investorApi';
 import InvestorsTable from './InvestorsTable';
 import {MemoryRouter} from 'react-router-dom';
 
@@ -33,7 +33,7 @@ describe('InvestorsTable', () => {
     });
 
     it('displays an error message when the API call fails', async () => {
-        getInvestorsByFirmIds.mockRejectedValue(new Error('connection failed'));
+        getInvestors.mockRejectedValue(new Error('connection failed'));
 
         renderWithRouter(<InvestorsTable/>);
         expect(screen.getByText('Loading...')).toBeInTheDocument();
@@ -42,7 +42,7 @@ describe('InvestorsTable', () => {
     });
 
     it('displays a message when no investors are found', async () => {
-        getInvestorsByFirmIds.mockResolvedValue({data: []});
+        getInvestors.mockResolvedValue({data: []});
 
         renderWithRouter(<InvestorsTable/>);
 
@@ -90,7 +90,7 @@ const mockGetInvestorsResponse = () => {
         },
     ];
 
-    getInvestorsByFirmIds.mockResolvedValue({data: response});
+    getInvestors.mockResolvedValue({data: response});
 
     return response;
 };
