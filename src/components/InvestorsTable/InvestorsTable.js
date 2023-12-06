@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {getInvestorsByFirmIds} from '../../api/investorApi';
+import {useNavigate} from "react-router-dom";
 
 const firmIds = [2670, 2792, 332, 3611];
 
@@ -7,6 +8,7 @@ const InvestorsTable = () => {
     const [investors, setInvestors] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,6 +24,10 @@ const InvestorsTable = () => {
 
         fetchData();
     }, []);
+
+    const handleRowClick = (firmId) => {
+        navigate(`/investors/${firmId}`);
+    }
 
     if (isLoading) {
         return <p>Loading...</p>;
@@ -42,7 +48,7 @@ const InvestorsTable = () => {
             </thead>
             <tbody>
             {investors.length > 0 ? (investors.map((investor, index) => (
-                <tr key={index}>
+                <tr role="row" key={index} onClick={() => handleRowClick(investor.firmID)}>
                     <td>{investor.firmID}</td>
                     <td>{investor.firmName}</td>
                     <td>{investor.firmType}</td>

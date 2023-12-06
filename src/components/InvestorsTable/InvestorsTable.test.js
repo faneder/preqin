@@ -1,10 +1,17 @@
 import React from 'react';
-import {render, screen, waitForElementToBeRemoved} from '@testing-library/react';
+import {fireEvent, render, screen, waitForElementToBeRemoved} from '@testing-library/react';
 import {getInvestorsByFirmIds} from '../../api/investorApi';
 import InvestorsTable from './InvestorsTable';
 import {MemoryRouter} from 'react-router-dom';
 
 jest.mock('../../api/investorApi');
+
+const mockNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => mockNavigate,
+}));
 
 describe('InvestorsTable', () => {
     it('displays investors are fetched when calls API', async () => {
@@ -43,6 +50,21 @@ describe('InvestorsTable', () => {
         await waitForElementToBeRemoved(loading);
 
         expect(screen.getByText('No investors found')).toBeInTheDocument();
+    });
+
+    it('navigates to investor details when clicks row', async () => {
+        mockGetInvestorsResponse();
+
+        renderWithRouter(<InvestorsTable/>);
+
+        const loading = await screen.findByText('Loading...');
+        await waitForElementToBeRemoved(loading);
+
+        const firstRow = screen.getAllByRole('row')[1];
+
+        fireEvent.click(firstRow);
+
+        expect(mockNavigate).toHaveBeenCalledWith('/investors/1111');
     });
 });
 
