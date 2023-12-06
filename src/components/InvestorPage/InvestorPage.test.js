@@ -1,8 +1,8 @@
 import React from 'react';
-import {fireEvent, render, screen, within} from '@testing-library/react';
+import {fireEvent, render, screen, waitFor, within} from '@testing-library/react';
 import {useParams} from 'react-router-dom';
 import {getInvestorCommitments} from '../../api/investorApi';
-import InvestorDetails from './InvestorPage';
+import InvestorPage from './InvestorPage';
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -41,7 +41,7 @@ describe('InvestorPage', () => {
         mockUseParams(777);
         getInvestorCommitments.mockResolvedValue(commitmentsResponse);
 
-        render(<InvestorDetails/>);
+        render(<InvestorPage/>);
 
         const table = await screen.findByRole('table');
         expect(table).toBeInTheDocument();
@@ -81,44 +81,55 @@ describe('InvestorPage', () => {
         mockUseParams(777);
         getInvestorCommitments.mockResolvedValue(commitmentsResponse);
 
-        render(<InvestorDetails/>);
+        render(<InvestorPage/>);
 
         const loader = await screen.findByTestId('loader');
         expect(loader).toBeInTheDocument();
     });
-        
+
     it('displays errors when the API call fails', async () => {
         mockUseParams(777);
         getInvestorCommitments.mockRejectedValue(new Error('An error occurred'));
 
-        render(<InvestorDetails/>);
+        render(<InvestorPage/>);
 
         const errorMessage = await screen.findByText('An error occurred');
         expect(errorMessage).toBeInTheDocument();
     });
 
     it('updates data when selected asset class changes', async () => {
-        mockUseParams(777);
         getInvestorCommitments
-            .mockResolvedValueOnce({data: [{investorId: '1111'}]})
-            .mockResolvedValueOnce({data: [{investorId: '2222'}]});
+            .mockResolvedValueOnce({data: [{investorName: 'Name 1'}]})
+            .mockResolvedValueOnce({data: [{investorName: 'Name 2'}]});
 
-        render(<InvestorDetails/>);
+        useParams.mockReturnValue({investorId: '777'});
 
-        const table1 = await screen.findByRole('table');
-        expect(table1).toBeInTheDocument();
+        render(<InvestorPage/>);
 
-        fireEvent.change(screen.getByDisplayValue('Private Equity'), {target: {value: 'pd'}});
+        const loader = await screen.findByTestId('loader');
+        expect(loader).toBeInTheDocument();
 
-        const table2 = await screen.findByRole('table');
-        expect(table2).toBeInTheDocument();
+        const selectElement = await screen.findByRole('combobox');
+        expect(selectElement.value).toBe('pe');
+
+        fireEvent.change(selectElement, {target: {value: 'pd'}});
+        expect(selectElement.value).toBe('pd');
+
+        expect(screen.getByTestId('investor-name')).toHaveTextContent('Name 1');
+
+        await waitFor(() => {
+            expect(getInvestorCommitments).toHaveBeenCalledTimes(2);
+            expect(getInvestorCommitments).toHaveBeenCalledWith('pd', '777');
+        });
+
+        await waitFor(() => expect(screen.getByTestId('investor-name')).toHaveTextContent('Name 2'));
     });
 
     it('displays message when no commitments found', async () => {
         mockUseParams(777);
         getInvestorCommitments.mockResolvedValue({"data": []});
 
-        render(<InvestorDetails/>);
+        render(<InvestorPage/>);
 
         const noCommitments = await screen.findByText('No commitments found');
         expect(noCommitments).toBeInTheDocument();
@@ -127,7 +138,7 @@ describe('InvestorPage', () => {
     it('does not fetch commitments when no investorId is provided', async () => {
         mockUseParams(null);
 
-        render(<InvestorDetails/>);
+        render(<InvestorPage/>);
 
         await new Promise(r => setTimeout(r, 100));
 

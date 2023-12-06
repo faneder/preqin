@@ -50,7 +50,7 @@ const InvestorPage = () => {
         <div>
             <h3 className="title">Commitments for {selectedAssetClass.label}</h3>
             <b>Select an asset class:</b>
-            <select onChange={handleAssetClassChange} value={selectedAssetClass}>
+            <select role="combobox" onChange={handleAssetClassChange} value={selectedAssetClass.value}>
                 {assetClasses.map((assetClass) => (
                     <option key={assetClass.value} value={assetClass.value}>
                         {assetClass.label}
