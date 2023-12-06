@@ -4,14 +4,13 @@ import {
     BASE_URL,
     INVESTOR_URL,
     AUTH_CONNECT_TOKEN_URL,
-    USERNAME,
-    APIKEY,
     INVESTOR_COMMITMENTS_URL
-} from "../config/config";
+} from "./apiConfig";
+import {REACT_APP_PREQIN_API_USERNAME, REACT_APP_PREQIN_APIKEY} from "../environment/config"
 
 export const getInvestors = async (firmIds) => {
     try {
-        const token = await new AuthService(BASE_URL).getAccessToken(USERNAME, APIKEY, AUTH_CONNECT_TOKEN_URL);
+        const token = await new AuthService(BASE_URL).getAccessToken(REACT_APP_PREQIN_API_USERNAME, REACT_APP_PREQIN_APIKEY, AUTH_CONNECT_TOKEN_URL);
         const config = {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -31,7 +30,7 @@ export const getInvestors = async (firmIds) => {
 
 export const getInvestorCommitments = async (assetClass, investorId) => {
     try {
-        const token = await new AuthService(BASE_URL).getAccessToken(USERNAME, APIKEY, AUTH_CONNECT_TOKEN_URL);
+        const token = await new AuthService(BASE_URL).getAccessToken(REACT_APP_PREQIN_API_USERNAME, REACT_APP_PREQIN_APIKEY, AUTH_CONNECT_TOKEN_URL);
         const config = {
             headers: {
                 'Authorization': `Bearer ${token}`,
