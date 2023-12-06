@@ -13,8 +13,8 @@ Before you begin, ensure you have the following installed on your system:
 1. Clone the repository to your local machine using the following command:
 
 ```sh
-git clone git@github.com:faneder/preqin-test.git
-cd preqin-test
+git clone git@github.com:faneder/preqin.git
+cd preqin
 ```
 
 2. Install the project dependencies by running:
