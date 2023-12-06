@@ -77,6 +77,16 @@ describe('InvestorPage', () => {
         });
     });
 
+    it('displays loader when rendering a table', async () => {
+        mockUseParams(777);
+        getInvestorCommitments.mockResolvedValue(commitmentsResponse);
+
+        render(<InvestorDetails/>);
+
+        const loader = await screen.findByTestId('loader');
+        expect(loader).toBeInTheDocument();
+    });
+        
     it('displays errors when the API call fails', async () => {
         mockUseParams(777);
         getInvestorCommitments.mockRejectedValue(new Error('An error occurred'));

@@ -34,13 +34,10 @@ describe('InvestorsTable', () => {
 
         renderWithRouter(<InvestorsTable/>);
 
-        const loading = screen.getByText('Loading...');
-        expect(loading).toBeInTheDocument();
-
-        await waitForElementToBeRemoved(loading);
+        expect(await screen.findByTestId('loader')).toBeInTheDocument();
+        await waitForElementToBeRemoved(() => screen.queryByTestId('loader'));
 
         const rows = screen.getAllByTestId('investor-row');
-
         expect(rows.length).toBe(2);
 
         rows.forEach((row) => {
@@ -79,8 +76,8 @@ describe('InvestorsTable', () => {
 
         renderWithRouter(<InvestorsTable/>);
 
-        const loading = await screen.findByText('Loading...');
-        await waitForElementToBeRemoved(loading);
+        expect(await screen.findByTestId('loader')).toBeInTheDocument();
+        await waitForElementToBeRemoved(() => screen.queryByTestId('loader'));
 
         const firstRow = screen.getAllByRole('row')[1];
 

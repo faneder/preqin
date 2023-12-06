@@ -30,34 +30,38 @@ const InvestorsTable = () => {
     }
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <div data-testid="loader" className="loader"></div>;
     }
 
     if (error) return <p>{error}</p>;
 
     return (
-        <table className="investors-table">
-            <caption className="caption">Investors</caption>
-            <thead>
-            <tr>
-                <th>FirmId</th>
-                <th>FirmName</th>
-                <th>FirmType</th>
-                <th>Address</th>
-            </tr>
-            </thead>
-            <tbody>
-            {investors.length > 0 ? (investors.map((investor, index) => (
-                <tr data-testid="investor-row" role="row" key={index} onClick={() => handleRowClick(investor.firmID)}>
-                    <td data-testid="firmID">{investor.firmID}</td>
-                    <td data-testid="firmName">{investor.firmName}</td>
-                    <td data-testid="firmType">{investor.firmType}</td>
-                    <td data-testid="address">{investor.address}</td>
+        <div>
+            <h3 className="title">Investors</h3>
+
+            <table className="investors-table">
+                <thead>
+                <tr>
+                    <th>FirmId</th>
+                    <th>FirmName</th>
+                    <th>FirmType</th>
+                    <th>Address</th>
                 </tr>
-                ))
-            ) : 'No investors found'}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {investors.length > 0 ? (investors.map((investor, index) => (
+                    <tr data-testid="investor-row" role="row" key={index}
+                        onClick={() => handleRowClick(investor.firmID)}>
+                        <td data-testid="firmID">{investor.firmID}</td>
+                        <td data-testid="firmName">{investor.firmName}</td>
+                        <td data-testid="firmType">{investor.firmType}</td>
+                        <td data-testid="address">{investor.address}</td>
+                    </tr>
+                    ))
+                ) : 'No investors found'}
+                </tbody>
+            </table>
+        </div>
     );
 }
 

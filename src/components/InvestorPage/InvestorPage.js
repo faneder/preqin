@@ -41,14 +41,14 @@ const InvestorPage = () => {
     }
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <div data-testid="loader" className="loader"></div>;
     }
 
     if (error) return <p>{error.message}</p>;
 
     return (
         <div>
-            <h3 className="caption">Commitments for {selectedAssetClass.label}</h3>
+            <h3 className="title">Commitments for {selectedAssetClass.label}</h3>
             <b>Select an asset class:</b>
             <select onChange={handleAssetClassChange} value={selectedAssetClass}>
                 {assetClasses.map((assetClass) => (
@@ -77,20 +77,20 @@ const InvestorPage = () => {
                 </thead>
                 <tbody>
                 {commitments.length > 0 ? (commitments.map((commitment, index) => (
-                    <tr role="row" key={index} data-testid="investor-row">
-                        <td data-testid="investor-name">{commitment.investorName}</td>
-                        <td data-testid="fund-id">{commitment.fundId}</td>
-                        <td data-testid="fund-name">{commitment.fundName}</td>
-                        <td data-testid="fund-manager-name">{commitment.fundManagerName}</td>
-                        <td data-testid="fund-size">{commitment.fundSizeMn}</td>
-                        <td data-testid="fund-currency">{commitment.fundCurrency}</td>
-                        <td data-testid="vintage">{commitment.vintage}</td>
-                        <td data-testid="fund-type">{commitment.fundType}</td>
-                        <td data-testid="core-industries">{commitment.coreIndustries}</td>
-                        <td data-testid="industry-verticals">{commitment.industryVerticals}</td>
-                        <td data-testid="benchmark-locations">{commitment.benchmarkLocations}</td>
-                        <td data-testid="manager-experience">{commitment.managerExperience}</td>
-                    </tr>
+                        <tr role="row" key={index} data-testid="investor-row">
+                            <td data-testid="investor-name">{commitment.investorName}</td>
+                            <td data-testid="fund-id">{commitment.fundId}</td>
+                            <td data-testid="fund-name">{commitment.fundName}</td>
+                            <td data-testid="fund-manager-name">{commitment.fundManagerName}</td>
+                            <td data-testid="fund-size">{commitment.fundSizeMn}</td>
+                            <td data-testid="fund-currency">{commitment.fundCurrency}</td>
+                            <td data-testid="vintage">{commitment.vintage}</td>
+                            <td data-testid="fund-type">{commitment.fundType}</td>
+                            <td data-testid="core-industries">{commitment.coreIndustries}</td>
+                            <td data-testid="industry-verticals">{commitment.industryVerticals}</td>
+                            <td data-testid="benchmark-locations">{commitment.benchmarkLocations}</td>
+                            <td data-testid="manager-experience">{commitment.managerExperience}</td>
+                        </tr>
                     ))
                 ) : 'No commitments found'}
                 </tbody>
