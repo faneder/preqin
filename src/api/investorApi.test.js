@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {getInvestorCommitments, getInvestors} from './investorApi';
 import AuthService from '../services/AuthService';
-import {INVESTOR_URL, INVESTOR_COMMITMENTS_URL} from "../config/config";
 
 jest.mock('axios');
 jest.mock('../services/AuthService');
@@ -26,7 +25,7 @@ describe('Investor API', () => {
             const actual = await getInvestors(firmIds);
 
             expect(actual).toEqual(expectedData);
-            expect(axios.get).toHaveBeenCalledWith(INVESTOR_URL, {
+            expect(axios.get).toHaveBeenCalledWith('https://api.preqin.com/api/Investor', {
                 headers: {
                     'Authorization': `Bearer ${ACCESS_TOKEN}`,
                 },
@@ -49,7 +48,7 @@ describe('Investor API', () => {
     describe('getCommitmentByAssetClassAndInvestorId', () => {
         const mockAssetClass = 'pe';
         const mockInvestorId = '777';
-        const mockUrl = `${INVESTOR_COMMITMENTS_URL}/${mockAssetClass}/${mockInvestorId}`;
+        const mockUrl = `https://api.preqin.com/api/Investor/commitment/${mockAssetClass}/${mockInvestorId}`;
         const mockData = {data: 'mockData'};
 
         it('fetches data correctly', async () => {

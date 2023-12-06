@@ -48,11 +48,11 @@ const InvestorsTable = () => {
             </thead>
             <tbody>
             {investors.length > 0 ? (investors.map((investor, index) => (
-                <tr role="row" key={index} onClick={() => handleRowClick(investor.firmID)}>
-                    <td>{investor.firmID}</td>
-                    <td>{investor.firmName}</td>
-                    <td>{investor.firmType}</td>
-                    <td>{investor.address}</td>
+                <tr data-testid="investor-row" role="row" key={index} onClick={() => handleRowClick(investor.firmID)}>
+                    <td data-testid="firmID">{investor.firmID}</td>
+                    <td data-testid="firmName">{investor.firmName}</td>
+                    <td data-testid="firmType">{investor.firmType}</td>
+                    <td data-testid="address">{investor.address}</td>
                 </tr>
                 ))
             ) : 'No investors found'}
