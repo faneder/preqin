@@ -49,8 +49,8 @@ This command will start the application and open it in your default web browser.
 ## Application Structure
 
 - `App.js`: This is the entry file for our React application. It sets up the router and defines the routes.
-- `components/InvestorsTable/InvestorsTable.js`: This component displays a list of investors fetched from the API.
-- `components/InvestorPage/InvestorPage.js`: This component displays the commitment information for a selected investor and asset class.
+- `components/InvestorsList/InvestorsList.js`: This component displays a list of investors fetched from the API.
+- `components/InvestorDetails/InvestorDetails.js`: This component displays the commitment information for a selected investor and asset class.
 - `api/investorApi.js`: Contains the API calls to fetch investors and their commitments.
 - `services/authService.js`: Contains the authentication service used to get an access token.
 

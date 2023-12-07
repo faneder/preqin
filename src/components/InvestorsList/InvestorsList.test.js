@@ -1,7 +1,7 @@
 import React from 'react';
 import {fireEvent, render, screen, waitForElementToBeRemoved, within} from '@testing-library/react';
 import {getInvestors} from '../../api/investorApi';
-import InvestorsTable from './InvestorsTable';
+import InvestorsList from './InvestorsList';
 import {MemoryRouter} from 'react-router-dom';
 
 jest.mock('../../api/investorApi');
@@ -28,11 +28,11 @@ const investorsResponse = {"data": [
     },
 ]};
 
-describe('InvestorsTable', () => {
+describe('InvestorsList', () => {
     it('displays investors are fetched when calls API', async () => {
         getInvestors.mockResolvedValue(investorsResponse);
 
-        renderWithRouter(<InvestorsTable/>);
+        renderWithRouter(<InvestorsList/>);
 
         expect(await screen.findByTestId('loader')).toBeInTheDocument();
         await waitForElementToBeRemoved(() => screen.queryByTestId('loader'));
@@ -55,7 +55,7 @@ describe('InvestorsTable', () => {
     it('displays an error message when the API call fails', async () => {
         getInvestors.mockRejectedValue(new Error('connection failed'));
 
-        renderWithRouter(<InvestorsTable/>);
+        renderWithRouter(<InvestorsList/>);
 
         const errorMessage = await screen.findByText('Error: connection failed');
         expect(errorMessage).toBeInTheDocument();
@@ -65,7 +65,7 @@ describe('InvestorsTable', () => {
     it('displays a message when no investors are found', async () => {
         getInvestors.mockResolvedValue({data: []});
 
-        renderWithRouter(<InvestorsTable/>);
+        renderWithRouter(<InvestorsList/>);
 
         const noInvestors = await screen.findByText('No investors found');
         expect(noInvestors).toBeInTheDocument();
@@ -74,7 +74,7 @@ describe('InvestorsTable', () => {
     it('navigates to investor details when clicks row', async () => {
         getInvestors.mockResolvedValue(investorsResponse);
 
-        renderWithRouter(<InvestorsTable/>);
+        renderWithRouter(<InvestorsList/>);
 
         expect(await screen.findByTestId('loader')).toBeInTheDocument();
         await waitForElementToBeRemoved(() => screen.queryByTestId('loader'));

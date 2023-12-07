@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {getInvestorCommitments} from '../../api/investorApi';
 
-const InvestorPage = () => {
+const InvestorDetails = () => {
     const {investorId} = useParams();
     const [assetClasses] = useState([
         {label: 'Private Equity', value: 'pe'},
@@ -41,14 +41,14 @@ const InvestorPage = () => {
     }
 
     if (isLoading) {
-        return <div data-testid="loader" className="loader"></div>;
+        return <section data-testid="loader" className="loader"></section>;
     }
 
     if (error) return <p>{error.message}</p>;
 
     return (
         <div>
-            <h3 className="title">Commitments for {selectedAssetClass.label}</h3>
+            <h3 className="title">Investor Commitments: {selectedAssetClass.label}</h3>
             <b>Select an asset class:</b>
             <select role="combobox" onChange={handleAssetClassChange} value={selectedAssetClass.value}>
                 {assetClasses.map((assetClass) => (
@@ -76,8 +76,8 @@ const InvestorPage = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {commitments.length > 0 ? (commitments.map((commitment, index) => (
-                        <tr role="row" key={index} data-testid="investor-row">
+                {commitments.length > 0 ? (commitments.map((commitment) => (
+                        <tr role="row" key={commitment.fundId} data-testid="investor-row">
                             <td data-testid="investor-name">{commitment.investorName}</td>
                             <td data-testid="fund-id">{commitment.fundId}</td>
                             <td data-testid="fund-name">{commitment.fundName}</td>
@@ -99,4 +99,4 @@ const InvestorPage = () => {
     );
 }
 
-export default InvestorPage;
+export default InvestorDetails;

@@ -2,7 +2,7 @@ import React from 'react';
 import {fireEvent, render, screen, waitFor, within} from '@testing-library/react';
 import {useParams} from 'react-router-dom';
 import {getInvestorCommitments} from '../../api/investorApi';
-import InvestorPage from './InvestorPage';
+import InvestorDetails from './InvestorDetails';
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -41,7 +41,7 @@ describe('InvestorPage', () => {
         mockUseParams(777);
         getInvestorCommitments.mockResolvedValue(commitmentsResponse);
 
-        render(<InvestorPage/>);
+        render(<InvestorDetails/>);
 
         const table = await screen.findByRole('table');
         expect(table).toBeInTheDocument();
@@ -81,7 +81,7 @@ describe('InvestorPage', () => {
         mockUseParams(777);
         getInvestorCommitments.mockResolvedValue(commitmentsResponse);
 
-        render(<InvestorPage/>);
+        render(<InvestorDetails/>);
 
         const loader = await screen.findByTestId('loader');
         expect(loader).toBeInTheDocument();
@@ -91,7 +91,7 @@ describe('InvestorPage', () => {
         mockUseParams(777);
         getInvestorCommitments.mockRejectedValue(new Error('An error occurred'));
 
-        render(<InvestorPage/>);
+        render(<InvestorDetails/>);
 
         const errorMessage = await screen.findByText('An error occurred');
         expect(errorMessage).toBeInTheDocument();
@@ -104,7 +104,7 @@ describe('InvestorPage', () => {
 
         useParams.mockReturnValue({investorId: '777'});
 
-        render(<InvestorPage/>);
+        render(<InvestorDetails/>);
 
         const loader = await screen.findByTestId('loader');
         expect(loader).toBeInTheDocument();
@@ -129,7 +129,7 @@ describe('InvestorPage', () => {
         mockUseParams(777);
         getInvestorCommitments.mockResolvedValue({"data": []});
 
-        render(<InvestorPage/>);
+        render(<InvestorDetails/>);
 
         const noCommitments = await screen.findByText('No commitments found');
         expect(noCommitments).toBeInTheDocument();
@@ -138,7 +138,7 @@ describe('InvestorPage', () => {
     it('does not fetch commitments when no investorId is provided', async () => {
         mockUseParams(null);
 
-        render(<InvestorPage/>);
+        render(<InvestorDetails/>);
 
         await new Promise(r => setTimeout(r, 100));
 

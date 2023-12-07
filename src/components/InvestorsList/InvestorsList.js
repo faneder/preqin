@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 
 const firmIds = [2670, 2792, 332, 3611];
 
-const InvestorsTable = () => {
+const InvestorsList = () => {
     const [investors, setInvestors] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -30,7 +30,7 @@ const InvestorsTable = () => {
     }
 
     if (isLoading) {
-        return <div data-testid="loader" className="loader"></div>;
+        return <section data-testid="loader" className="loader"></section>;
     }
 
     if (error) return <p>{error}</p>;
@@ -49,8 +49,8 @@ const InvestorsTable = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {investors.length > 0 ? (investors.map((investor, index) => (
-                    <tr data-testid="investor-row" role="row" key={index}
+                {investors.length > 0 ? (investors.map((investor) => (
+                    <tr data-testid="investor-row" role="row" key={investor.firmID}
                         onClick={() => handleRowClick(investor.firmID)}>
                         <td data-testid="firmID">{investor.firmID}</td>
                         <td data-testid="firmName">{investor.firmName}</td>
@@ -65,4 +65,4 @@ const InvestorsTable = () => {
     );
 }
 
-export default InvestorsTable;
+export default InvestorsList;

@@ -1,6 +1,6 @@
 import './App.css';
-import InvestorsTable from "./components/InvestorsTable/InvestorsTable";
-import InvestorPage from "./components/InvestorPage/InvestorPage";
+import InvestorsList from "./components/InvestorsList/InvestorsList";
+import InvestorDetails from "./components/InvestorDetails/InvestorDetails";
 import React from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
@@ -9,8 +9,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<InvestorsTable />} />
-          <Route path="/investors/:investorId" element={<InvestorPage/>} />
+          <Route path="/" element={<InvestorsList />} />
+          <Route path="/investors/:investorId" element={<InvestorDetails/>} />
         </Routes>
       </BrowserRouter>
     </div>
